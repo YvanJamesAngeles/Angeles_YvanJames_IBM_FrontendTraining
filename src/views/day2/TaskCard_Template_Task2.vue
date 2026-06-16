@@ -64,30 +64,50 @@ HINTS (read only if stuck)
 // TODO 1: import defineProps and defineEmits (they are compiler macros — no import needed
 //          but you DO need to call them)
 
+
+
 // TODO 2: Define the task prop with type Object, required: true
 // const props = defineProps({ ... })
 
 // TODO 3: Define emits for 'complete' and 'delete'
 // const emit = defineEmits([...])
+
+const props = defineProps({
+  task: {
+    type: Object,
+    required: true
+  }
+})
+
+const emit = defineEmits(['complete', 'delete'])
 </script>
 
 <template>
   <!-- TODO 4: Wrap everything in a div with class "task-card"
                Add :class="{ completed: task.done }" to the wrapper div -->
-  <div class="task-card">
+  
+  <div class="task-card" :class="{ completed: props.task.done }">
 
     <div class="task-header">
+      
       <!-- TODO 5: Display the task name -->
+      <span class="name">{{ props.task.name }}</span>
 
       <!-- TODO 6: Add the named slot for metadata -->
-      <!-- <slot name="meta" /> -->
+      <slot name="meta" />
     </div>
 
     <div class="task-actions">
       <!-- TODO 7: Add Complete/Undo button — text changes based on task.done -->
       <!--         @click should emit 'complete' with task.id as payload -->
+      <button class="btn-complete" @click="emit('complete', props.task.id)">
+        {{ props.task.done ? 'Undo' : 'Complete' }}
+      </button>
 
       <!-- TODO 8: Add Delete button — emits 'delete' with task.id -->
+      <button class="btn-delete" @click="emit('delete', props.task.id)">
+        Delete
+      </button>
     </div>
   </div>
 </template>

@@ -6,7 +6,7 @@
 -->
 <script setup>
 import { ref } from 'vue'
-import TaskCard_Template_Task2 from './TaskCard_Template_Task2.vue';
+import TaskCard from './TaskCard_Template_Task2.vue';
 // TODO 1: Create a ref() tasks array with at least 3 sample tasks
 // Each task: { id, name, done, dueDate }
 // const tasks = ref([...])
@@ -72,6 +72,18 @@ function handleDelete(id) {
       </template>
     </TaskCard>
     -->
+    <p v-if="tasks.length === 0" class="empty">No tasks yet. Add one!</p>
+    <TaskCard
+      v-for="task in tasks"
+      :key="task.id"
+      :task="task"
+      @complete="handleComplete"
+      @delete="handleDelete"
+    >
+      <template #meta>
+        Due: {{ task.dueDate }}
+      </template>
+    </TaskCard>
   </div>
 </template>
 
