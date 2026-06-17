@@ -5,6 +5,6 @@ import TaskCounter from './views/day1/TaskCounter.vue';
 </script>
 
 <template>
-  <!-- <HelloWorld /> -->
-  <TaskCounter />
+
+    <RouterView />
 </template>
